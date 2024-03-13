@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Library System Homepage</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css"> 
+
+</head>
+<body>
+    <body style="background-image: url('/photos/jinx.png'); background-size:cover; background-position:center; background-repeat:no-repeat; min-height:100vh;">
+<!-- Start of Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="dashboard.html">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Book Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item active" href="booklist.html">Books Available</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="dmgbooks.html">Books Unavailable</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="unreturned.html">Borrowed Books</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="returned.html">Returned Books</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="studentlog.html">Student Logbook</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="index.html" tabindex="-5" aria-disabled="true">Log Out</a>
+        </li>
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!-- End of NavBar -->
+
+<!-- Start of Add book Form-->
+<div class="form">
+<form class="row g-2">
+    <div class="col-md-8">
+      <input type="text" class="form-control" id="bname" placeholder="Book Name" required>
+    </div>
+    <div class="col-4">
+        <input type="number" class="form-control" id="quanti" placeholder="Quantity" min="1" max="9" required>
+      </div>
+
+      <div class="col-8">
+        <input type="text" class="form-control" id="author" placeholder="Author" required>
+      </div>
+
+      <div class="col-md-4">
+        <select id="genre" class="form-select">
+          <option selected>Genre</option>
+          <option>Fiction</option>
+          <option>Literature</option>
+          <option>Newspaper</option>
+        </select>
+      </div>
+      
+    <div class="col-md-6">
+        <input type="text" class="form-control" id="bnum" placeholder="Book Number" required>
+      </div>
+
+    <div class="col-md-6">
+      <input type="text" class="form-control" id="snum" placeholder="Shelf Number" required>
+    </div>
+
+    <div class="col">
+      <button type="submit" id="submit" class="btn btn-primary">Add Book</button>
+    </div>
+  </form>
+
+</div>
+<!-- End of Add book Form-->
+
+<!-- Start of Set Up Connections to Firebase-->
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, get, child, onValue} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
+      authDomain: "lms-try-3fdf2.firebaseapp.com",
+      databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
+      projectId: "lms-try-3fdf2",
+      storageBucket: "lms-try-3fdf2.appspot.com",
+      messagingSenderId: "922498078551",
+      appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  
+    const db = getDatabase(app);
+  
+    document.getElementById("submit").addEventListener('click', function(e){
+        e.preventDefault();
+
+      set(ref(db, 'Books/' + document.getElementById("bname").value),
+      {
+        
+        bookname: document.getElementById("bname").value,
+        quantity: document.getElementById("quanti").value,
+        author: document.getElementById("author").value,
+        genre: document.getElementById("genre").value,
+        passwword: document.getElementById("bnum").value,
+        shelfnumber: document.getElementById("snum").value
+  
+      });
+  
+      alert("Book Added Succesfully!");
+      setTimeout(function() {
+          window.location.href = "booklist.html";
+      }, 1500); // 1500 milliseconds (1.5 seconds)
+  
+    });
+    getData.addEventListener("click", (e) => {
+    const dbRef = ref(db, '/a/b/c');
+
+onValue(dbRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    // ...
+  });
+}, {
+  onlyOnce: true
+}
+);
+});
+  
+  </script>
+<!-- End of Set Up Connections to Firebase-->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

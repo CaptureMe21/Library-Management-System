@@ -1,0 +1,526 @@
+
+/*Register Css*/
+.offcanvas{
+    background-image:url('/photos/jinx.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.register {
+    width: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    backdrop-filter: blur(10px);
+}
+.regiswrap{
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 50px 50px;
+    border-radius: 20px;
+    background-position: center;
+}
+.regiswrap h1{
+    font-size: 35px;
+    text-align: center;
+}
+
+.regiswrap .input-box{
+    width: 100%;
+    height: 50px;
+    margin: 20px 10px;
+}
+.input-box input{
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    font-size: 16px;
+    border-radius: 40px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+.input-box input::placeholder{
+    color: #fff;
+}
+.input-box i{
+    position: absolute;
+    right: 10px;
+    padding: 16px 0px 0px 0px;
+    transform: translate(-50px);
+    font-size: 20px;
+}
+.regiswrap .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: -15px 0 15px;
+}
+.remember-forgot label input{
+    accent-color: #fff;
+    margin-right: 3px;
+}
+.remember-forgot a{
+    color: #fff;
+    text-decoration: none;
+}
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+
+.regiswrap .btn{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+.regiswrap .register-link{
+    font-size: 14px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+.register-link p a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    color: blue;
+}
+.register-link p a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+.welcome{
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.btn{
+    background-color: transparent;
+    border: transparent;
+}
+.offcanvas-header button{
+    background-color: white;
+}
+
+/*Start of Container css*/
+.mobile-logo{
+    display: none;
+}
+.mobile-logo h4{
+    width: 30px;
+    color: white;
+    margin-top: -165px;
+    margin-left: 190px;
+    font-size: 15px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.pc-logo{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10%;
+}
+.pc-logo h3{
+    width: 15%;
+    height: 20%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 190px;  
+    font-size: 35px;
+    margin-left: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.container{ 
+    height: 100%;
+    width: 600px;
+    display: flex;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    border-radius: 40px;
+    align-items: center;
+    margin-top: 30px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    text-shadow: 2px 2px 2px black;
+}
+.container h1{
+    margin-bottom: 15px;
+}
+.container h2{
+    color: white;
+    display: flex;
+    align-items: center;
+    width: 160px;
+    height: 150px;
+    margin-top: 20% ;
+    margin-left: 10%;
+    font-size: 30px;
+}
+.container .welcome p{
+    font-size: 10px;
+    color: white;
+    display: flex;
+    margin-left: 10%;
+    font-size: 12px;
+}
+
+.container .welcome p a{
+    padding-left: 10px;
+    font-size: 12px;
+    text-align: left;
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+}
+.container .welcome p a:hover{
+    text-decoration: underline;
+    color: blue;
+}
+
+.body{
+    display: flex;
+    width: 125%;
+    align-items: center;
+    margin-left: -17px;
+}
+.wrapper{
+    background: transparent;
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 40px;
+    margin-left: 2px;
+    height: 100%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    width: 70%;
+}
+.wrapper h1{
+    font-size: 36px;
+    text-align: center;
+}
+
+.wrapper .input-box{
+    width: 100%;
+    height: 50px;
+    margin-top: 25px;
+}
+.input-box input{
+    width: 100%;
+    height: 120%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, .2);
+    font-size: 16px;
+    border-radius: 40px;
+    color: #fff;
+    padding: 10px 50px 10px 10px;
+}
+.input-box input::placeholder{
+    color: #fff;
+}
+.input-box i{
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    right: 210px;
+    padding: 10px;
+    margin-top: 10px;
+}
+.wrapper .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14.5px;
+    margin: 15px 0px 10px 2px;
+}
+
+.remember-forgot label input{
+    accent-color: #fff;
+    margin-right: 2px;
+   
+}
+.remember-forgot a{
+    color: #fff;
+    text-decoration: none;
+}
+.remember-forgot a:hover{
+    text-decoration: underline;
+}
+
+.wrapper .btn{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+/*End of Container css*/
+
+/*Start of mobile-wrap css*/
+.mobile-container{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin-top: -15%;
+    text-shadow: 2px 2px 2px black;
+}
+
+.mobile-wrap{
+    background: transparent;
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 40px;
+    margin-left: 2px;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, .2);
+    width: 70%;
+}
+.mobile-wrap h1{
+    font-size: 36px;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.mobile-wrap .input-box{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 25px;
+}
+.remember-forgot label{
+    color: white;
+    font-size: 14px;
+}
+.remember-forgot a{
+    color: white;
+    font-size: 14px;
+}
+.mobile-wrap .remember-forgot{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 10px;
+}
+.mobile-wrap .btn{
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+.mobile-container .register-link{
+    font-size: 12px;
+    text-align: center;
+    margin: 10px 0 15px;
+}
+/*End of mobile-wrap css*/
+
+/*Search Bar Css*/
+.d-flex{
+    margin-top: 10px;
+    margin-left: 25%;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* Start of Book List Card*/
+.card{
+    background-color: white;
+    opacity: 65%;
+    right: -3%;
+    top: 20px;
+
+}.card-body p{
+    text-align: center;
+}
+
+/* Start of Add Form*/
+.form{
+    justify-content: center;
+    display: flex;
+    margin-top: 10%;
+    align-items: center;
+
+}
+.row{
+    width:32%;
+    height: fit-content;
+    backdrop-filter: blur(5px);
+    padding: 25px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 10px;
+    align-items: center;
+    display: flex;
+}
+.row button{
+background-color: green;
+margin: 0% 0% 0% 38%;
+border-radius: 10%;
+}
+
+/*Table from available books Css*/
+
+.table-container{
+    width: 85%;
+    margin-left: 13%;
+    margin-top: -220px;
+}
+.table{
+    width: 100%;
+    height: fit-content;
+    color: white;
+    font-size: 15px;
+    
+}
+.table th{
+    text-align: center;
+}
+
+.table tr{
+    text-align: center;
+}
+
+/* Responsive styles*/
+@media (max-width: 650px) {
+    /*Start of Responsive Log In*/
+    .mobile-logo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10%;
+        margin-left: -11%;
+    }
+    .mobile-logo h4{
+        display: flex;
+        margin-top: 2%;
+        margin-left: 1%;
+        font-size: 20px;
+    }
+    .pc-logo{
+        display: none;
+    }
+    .mobile-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-position: center;
+        width: 120%;
+        margin-top: -100px;
+        margin-left: 10%;
+    }
+    .container {
+        display:none;
+    }
+
+    .wrapper {
+        width: 90%;
+        height: 50%;
+    }
+
+    .input-box input {
+        font-size: 12px;
+        padding: 10px 40px 10px 10px;
+    }
+    .input-box i{
+        margin-top: 10px;
+        right: 0px;
+    }
+    .btn {
+        height: 30px;
+        font-size: 12px;
+    }
+    body{
+        background-image: url('/photos/tmccrop.jpg');
+        min-height: 100vh;
+    }
+
+    /*Search Bar*/
+    .d-flex{
+        margin-top: 10px;
+        margin-left: 10px;
+        width: 95%;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+    /*Start of Responsive Card*/
+    .card{
+        display: none;
+    }
+
+    .card-mobile{
+        background-color: white;
+        opacity: 65%;
+        width: 5rem;
+        margin-left: 20%;
+        margin-top: 10px;
+    }
+
+    .card-img-top{
+        margin-top: -8px;
+    }
+
+    /*Table from available books Css*/
+    .table-container{
+        height: 450px;
+    }
+
+    .table{
+        width: 95%;
+        height: fit-content;
+        color: white;
+        font-size: 12px;
+        text-align: center;
+        align-items: center;
+        margin-left: 2%;
+        margin-right: 2%;
+        margin-top: 0;
+    }
+
+    /*Start of Responsive Add Book*/
+    .form{
+        justify-content: center;
+        display: flex;
+        align-items: center;
+    }
+    .row{
+        width: 80%;
+        height: fit-content;
+        backdrop-filter: blur(5px);
+        padding: 25px;
+        border: 2px solid rgba(255, 255, 255, .2);
+        border-radius: 10px;
+        align-items: center;
+        display: flex;
+    }
+
+
+} /*End of responsive Style*/

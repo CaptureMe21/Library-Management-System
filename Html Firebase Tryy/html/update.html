@@ -97,67 +97,64 @@
 </div>
 <!-- End of Add book Form-->
 
-<!-- Start of Set Up Connections to Firebase-->
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, get, child, onValue} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
   
     // Your web app's Firebase configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
-      authDomain: "lms-try-3fdf2.firebaseapp.com",
-      databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
-      projectId: "lms-try-3fdf2",
-      storageBucket: "lms-try-3fdf2.appspot.com",
-      messagingSenderId: "922498078551",
-      appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      databaseURL: "YOUR_DATABASE_URL",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
     };
   
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
   
-    document.getElementById("submit").addEventListener('click', function(e){
-        e.preventDefault();
-
-      set(ref(db, 'Books/' + document.getElementById("bname").value),
-      {
-        
-        bookname: document.getElementById("bname").value,
-        quantity: document.getElementById("quanti").value,
-        author: document.getElementById("author").value,
-        genre: document.getElementById("genre").value,
-        booknum: document.getElementById("bnum").value,
-        shelfnumber: document.getElementById("snum").value
+    // Reference to the 'Books' node in the database
+    const booksRef = ref(db, 'Books');
   
+    // Listen for changes to the 'Books' node
+    onValue(booksRef, (snapshot) => {
+      const tableBody = document.getElementById('table-body');
+      tableBody.innerHTML = ''; // Clear the table body before populating
+  
+      // Iterate over each child of 'Books'
+      snapshot.forEach((childSnapshot) => {
+        const bookKey = childSnapshot.key; // Get the key of the book
+        const bookData = childSnapshot.val();
+  
+        // Append a new row to the table for each book
+        tableBody.innerHTML += `
+          <tr>
+            <td>${bookData.bookname}</td>
+            <td>${bookData.author}</td>
+            <td>${bookData.category}</td>
+            <td>${bookData.quantity}</td>
+            <td>${bookData.shelfnumber}</td>
+            <td><button class="update-button" data-key="${bookKey}">Update</button></td>
+          </tr>
+        `;
       });
   
-      alert("Book Added Succesfully!");
-      setTimeout(function() {
-          window.location.href = "booklist.html";
-      }, 1500); // 1500 milliseconds (1.5 seconds)
+      // Add event listeners to the Update buttons
+      const updateButtons = document.querySelectorAll('.update-button');
+      updateButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+          const bookKey = event.target.dataset.key; // Get the key of the book
+          // Redirect to the update page with the book key as a query parameter
+          window.location.href = `update.html?key=${bookKey}`;
+        });
+      });
     });
-
-    getData.addEventListener("click", (e) => {
-    const dbRef = ref(db, '/a/b/c');
-
-onValue(dbRef, (snapshot) => {
-  snapshot.forEach((childSnapshot) => {
-    const childKey = childSnapshot.key;
-    const childData = childSnapshot.val();
-    // ...
-  });
-}, {
-  onlyOnce: true
-}
-);
-});
   
   </script>
-<!-- End of Set Up Connections to Firebase-->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 </body>
 </html>

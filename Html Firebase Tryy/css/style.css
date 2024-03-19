@@ -357,8 +357,12 @@
     opacity: 65%;
     right: -3%;
     top: 20px;
+    margin-bottom: 10px;
+    width: 8rem; 
+    height: 11rem;
+}
 
-}.card-body p{
+.card-body p{
     text-align: center;
 }
 
@@ -390,8 +394,8 @@ border-radius: 10%;
 
 .table-container{
     width: 85%;
-    margin-left: 13%;
-    margin-top: -220px;
+    margin-left: 190px;
+    margin-top: -430px;
 }
 .table{
     width: 100%;

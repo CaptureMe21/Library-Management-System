@@ -62,35 +62,15 @@
 <div class="form">
 <form class="row g-2">
     <div class="col-md-8">
-      <input type="text" class="form-control" id="bname" placeholder="Book Name" required>
-    </div>
+        <input type="text" class="form-control" id="bnum" placeholder="Book Number" required>
+      </div>
+      
     <div class="col-4">
         <input type="number" class="form-control" id="quanti" placeholder="Quantity" min="1" max="9" required>
       </div>
 
-      <div class="col-8">
-        <input type="text" class="form-control" id="author" placeholder="Author" required>
-      </div>
-
-      <div class="col-md-4">
-        <select id="genre" class="form-select">
-          <option selected>Genre</option>
-          <option>Fiction</option>
-          <option>Literature</option>
-          <option>Newspaper</option>
-        </select>
-      </div>
-      
-    <div class="col-md-6">
-        <input type="text" class="form-control" id="bnum" placeholder="Book Number" required>
-      </div>
-
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="snum" placeholder="Shelf Number" required>
-    </div>
-
     <div class="col">
-      <button type="submit" id="submit" class="btn btn-primary">Add Book</button>
+      <button type="submit" id="submit" class="btn btn-primary">Delete Book</button>
     </div>
   </form>
 
@@ -101,7 +81,7 @@
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, set, get, child, onValue} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
   
     // Your web app's Firebase configuration
     const firebaseConfig = {
@@ -118,43 +98,32 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
   
+    // Handle form submission
     document.getElementById("submit").addEventListener('click', function(e){
         e.preventDefault();
 
-      set(ref(db, 'Books/' + document.getElementById("bname").value),
-      {
-        
-        bookname: document.getElementById("bname").value,
-        quantity: document.getElementById("quanti").value,
-        author: document.getElementById("author").value,
-        genre: document.getElementById("genre").value,
-        booknum: document.getElementById("bnum").value,
-        shelfnumber: document.getElementById("snum").value
-  
-      });
-  
-      alert("Book Added Succesfully!");
-      setTimeout(function() {
-          window.location.href = "booklist.html";
-      }, 1500); // 1500 milliseconds (1.5 seconds)
+        const bookName = document.getElementById("bname").value.trim(); // Assuming "bnum" is the unique identifier for the book
+
+        // Reference to the data you want to delete
+        const bookRef = ref(db, 'Books/' + bookName);
+
+        // Remove the book from the database
+        remove(bookRef)
+            .then(() => {
+                console.log("Book deleted successfully!");
+                // Optional: Provide feedback to the user
+                alert("Book deleted successfully!");
+                // Redirect to a different page
+                window.location.href = "booklist.html";
+            })
+            .catch((error) => {
+                console.error("Error deleting book: ", error);
+                // Optional: Provide feedback to the user
+                alert("Error deleting book. Please try again later.");
+            });
     });
+</script>
 
-    getData.addEventListener("click", (e) => {
-    const dbRef = ref(db, '/a/b/c');
-
-onValue(dbRef, (snapshot) => {
-  snapshot.forEach((childSnapshot) => {
-    const childKey = childSnapshot.key;
-    const childData = childSnapshot.val();
-    // ...
-  });
-}, {
-  onlyOnce: true
-}
-);
-});
-  
-  </script>
 <!-- End of Set Up Connections to Firebase-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

@@ -46,7 +46,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="index.html" tabindex="-5" aria-disabled="true">Log Out</a>
+          <a class="nav-link" href="index.html" tabindex="-5" aria-disabled="true" id="logout">Log Out</a>
         </li>
       </ul>
       <form class="d-flex">
@@ -62,7 +62,7 @@
 <div class="form">
 <form class="row g-2">
     <div class="col-md-8">
-        <input type="text" class="form-control" id="bnum" placeholder="Book Number" required>
+        <input type="text" class="form-control" id="bname" placeholder="Book Name" required>
       </div>
       
     <div class="col-4">
@@ -77,52 +77,101 @@
 </div>
 <!-- End of Add book Form-->
 
+<div class="loader"></div>
+
+<!--Loader-->
+<script>
+  window.addEventListener("load", ()=>{
+      const loader = document.querySelector(".loader");
+      loader.classList.add("loader--hidden");
+      loader.addEventListener("transitionend",() => {
+          document.body.removeChild(document.querySelector("loader"));
+      });
+  });
+</script>
+<script src="/js/auth.js"></script>
+
 <!-- Start of Set Up Connections to Firebase-->
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-  
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
-      authDomain: "lms-try-3fdf2.firebaseapp.com",
-      databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
-      projectId: "lms-try-3fdf2",
-      storageBucket: "lms-try-3fdf2.appspot.com",
-      messagingSenderId: "922498078551",
-      appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-  
-    // Handle form submission
-    document.getElementById("submit").addEventListener('click', function(e){
-        e.preventDefault();
+      import { getDatabase, ref, set, get, update, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
+        authDomain: "lms-try-3fdf2.firebaseapp.com",
+        databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
+        projectId: "lms-try-3fdf2",
+        storageBucket: "lms-try-3fdf2.appspot.com",
+        messagingSenderId: "922498078551",
+        appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
+      };
 
-        const bookName = document.getElementById("bname").value.trim(); // Assuming "bnum" is the unique identifier for the book
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const auth = getAuth();
 
-        // Reference to the data you want to delete
-        const bookRef = ref(db, 'Books/' + bookName);
+        // Handle form submission
+        document.getElementById("submit").addEventListener('click', function(e){
+            e.preventDefault();
 
-        // Remove the book from the database
-        remove(bookRef)
-            .then(() => {
-                console.log("Book deleted successfully!");
-                // Optional: Provide feedback to the user
-                alert("Book deleted successfully!");
-                // Redirect to a different page
-                window.location.href = "booklist.html";
-            })
-            .catch((error) => {
-                console.error("Error deleting book: ", error);
-                // Optional: Provide feedback to the user
-                alert("Error deleting book. Please try again later.");
-            });
-    });
-</script>
+            // Get the book number from the input field
+            const bookName = document.getElementById("bname").value.trim();
+
+            // Check if the book number is empty
+            if (!bookName) {
+                alert("Please enter a book number.");
+                return; // Exit the function early
+            }
+
+            // Reference to the book data in the database
+            const bookRef = ref(db, 'Books/' + bookName);
+
+            // Remove the book from the database
+            remove(bookRef)
+                .then(() => {
+                    console.log("Book deleted successfully!");
+                    // Provide feedback to the user
+                    alert("Book deleted successfully!");
+                    // Redirect to a different page
+                    window.location.href = "booklist.html";
+                })
+                .catch((error) => {
+                    console.error("Error deleting book: ", error);
+                    // Provide feedback to the user
+                    alert("Error deleting book. Please try again later.");
+                });
+        });
+
+        // Function to check if user is authenticated
+      function checkAuthentication() {
+          onAuthStateChanged(auth, (user) => {
+              if (!user) {
+                  // User is not logged in, redirect to login page
+                  window.location.href = "index.html";
+              }
+          });
+      }
+
+       // Function to log out
+       document.getElementById("logout").addEventListener("click", () => {
+          signOut(auth)
+              .then(() => {
+                  console.log("User signed out successfully");
+                  window.localStorage.removeItem('isLoggedIn');
+                  window.location.href = "index.html"; // Redirect to login page
+              })
+              .catch((error) => {
+                  console.error("Error signing out:", error);
+              });
+      });
+
+      // Call checkAuthentication() when the page loads
+      checkAuthentication();
+    </script>
 
 <!-- End of Set Up Connections to Firebase-->
 

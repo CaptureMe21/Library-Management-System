@@ -1,3 +1,36 @@
+/*Loading Screen*/
+.loader{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: #333333;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader--hidden{
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+.loader::after{
+    content: " ";
+    width: 75px;
+    height: 75px;
+    border: 15px solid #dddddd;
+    border-top-color: #009578;
+    border-radius: 50%; 
+    animation: loading 0.75s ease infinite;
+}
+@keyframes loading{
+    from{transform: rotate(0turn)}
+    to{transform: rotate(1turn);}
+}
 
 /*Register Css*/
 .offcanvas{
@@ -364,6 +397,8 @@
 
 .card-body p{
     text-align: center;
+    font-size: 15px;
+    margin-top: -25px;
 }
 
 /* Start of Add Form*/

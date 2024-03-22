@@ -58,7 +58,7 @@
 </nav>
 <!-- End of NavBar -->
 
-<!-- Start of Add book Form-->
+<!-- Start of Update Book Form-->
 <div class="form">
 <form class="row g-2">
     <div class="col-md-8">
@@ -90,71 +90,138 @@
     </div>
 
     <div class="col">
-      <button type="submit" id="submit" class="btn btn-primary">Add Book</button>
+      <button type="submit" id="updatebtn" class="btn btn-primary">Save Update</button>
     </div>
   </form>
 
 </div>
 <!-- End of Add book Form-->
 
+<div class="loader"></div>
+
+<!--Loader-->
+<script>
+  window.addEventListener("load", ()=>{
+      const loader = document.querySelector(".loader");
+      loader.classList.add("loader--hidden");
+      loader.addEventListener("transitionend",() => {
+          document.body.removeChild(document.querySelector("loader"));
+      });
+  });
+</script>
+<script src="/js/auth.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script type="module">
-    // Import the functions you need from the SDKs you need
+    
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-  
-    // Your web app's Firebase configuration
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_AUTH_DOMAIN",
-      databaseURL: "YOUR_DATABASE_URL",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_STORAGE_BUCKET",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-  
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-  
-    // Reference to the 'Books' node in the database
-    const booksRef = ref(db, 'Books');
-  
-    // Listen for changes to the 'Books' node
-    onValue(booksRef, (snapshot) => {
-      const tableBody = document.getElementById('table-body');
-      tableBody.innerHTML = ''; // Clear the table body before populating
-  
-      // Iterate over each child of 'Books'
-      snapshot.forEach((childSnapshot) => {
-        const bookKey = childSnapshot.key; // Get the key of the book
-        const bookData = childSnapshot.val();
-  
-        // Append a new row to the table for each book
-        tableBody.innerHTML += `
-          <tr>
-            <td>${bookData.bookname}</td>
-            <td>${bookData.author}</td>
-            <td>${bookData.category}</td>
-            <td>${bookData.quantity}</td>
-            <td>${bookData.shelfnumber}</td>
-            <td><button class="update-button" data-key="${bookKey}">Update</button></td>
-          </tr>
-        `;
-      });
-  
-      // Add event listeners to the Update buttons
-      const updateButtons = document.querySelectorAll('.update-button');
-      updateButtons.forEach((button) => {
-        button.addEventListener('click', (event) => {
-          const bookKey = event.target.dataset.key; // Get the key of the book
-          // Redirect to the update page with the book key as a query parameter
-          window.location.href = `update.html?key=${bookKey}`;
+    import { getDatabase, ref, set, get, update, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
+        authDomain: "lms-try-3fdf2.firebaseapp.com",
+        databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
+        projectId: "lms-try-3fdf2",
+        storageBucket: "lms-try-3fdf2.appspot.com",
+        messagingSenderId: "922498078551",
+        appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const auth = getAuth();
+
+  // Function to get the value of a URL parameter by name
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+  // Function to set the values of input fields based on the book-key
+    function setInputsFromBookKey() {
+        const bookKey = getParameterByName('book-key');
+        if (bookKey) {
+          // Get the book data from the database using the book-key
+          const bookRef = ref(db, 'Books/' + bookKey);
+          onValue(bookRef, (snapshot) => {
+            const bookData = snapshot.val();
+            // Populate input fields with book data
+            document.getElementById('bname').value = bookData.bookname;
+            document.getElementById('quanti').value = bookData.quantity;
+            document.getElementById('author').value = bookData.author;
+            document.getElementById('genre').value = bookData.genre;
+            document.getElementById('bnum').value = bookData.booknum;
+            document.getElementById('snum').value = bookData.shelfnumber;
         });
+      }
+    }
+
+  // Call the function to populate input fields when the page loads
+  window.onload = setInputsFromBookKey;
+
+     // Add event listener to the save update button
+     document.getElementById('updatebtn').addEventListener('click', async () => {
+            // Retrieve updated values from input fields
+            const updatedBook = {
+            bookname: document.getElementById('bname').value,
+            quantity: document.getElementById('quanti').value,
+            author: document.getElementById('author').value,
+            genre: document.getElementById('genre').value,
+            booknum: document.getElementById('bnum').value,
+            shelfnumber: document.getElementById('snum').value
+          };
+
+      const bookKey = getParameterByName('book-key');
+            if (bookKey) {
+                // Update the corresponding book data in the Firebase Realtime Database
+                const bookRef = ref(db, 'Books/' + bookKey);
+                set(bookRef, updatedBook)
+                .then(() => {
+                        console.log("Book Updated Successfully!");
+                        // Optional: Provide feedback to the user
+                        alert("Book Updated Successfully!");
+                        // Redirect to a different page
+                        window.location.href = "booklist.html";
+                    })
+                    .catch((error) => {
+                        console.error("Error Updating Book: ", error);
+                        // Optional: Provide feedback to the user
+                        alert("Error deleting book. Please try again later.");
+                    });
+                }
+            });
+
+            // Function to check if user is authenticated
+      function checkAuthentication() {
+          onAuthStateChanged(auth, (user) => {
+              if (!user) {
+                  // User is not logged in, redirect to login page
+                  window.location.href = "index.html";
+              }
+          });
+      }
+
+       // Function to log out
+       document.getElementById("logout").addEventListener("click", () => {
+          signOut(auth)
+              .then(() => {
+                  console.log("User signed out successfully");
+                  window.localStorage.removeItem('isLoggedIn');
+                  window.location.href = "index.html"; // Redirect to login page
+              })
+              .catch((error) => {
+                  console.error("Error signing out:", error);
+              });
       });
-    });
-  
-  </script>
+
+      // Call checkAuthentication() when the page loads
+      checkAuthentication();
+</script>
 
 </body>
 </html>

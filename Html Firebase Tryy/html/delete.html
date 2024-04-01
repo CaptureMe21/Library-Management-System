@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Library System Homepage</title>
+<title>LMS Delete Book</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,20 +58,20 @@
 </nav>
 <!-- End of NavBar -->
 
-<!-- Start of Add book Form-->
+<!-- Start of Delete book Form-->
 <div class="form">
 <form class="row g-2">
     <div class="col-md-8">
-        <input type="text" class="form-control" id="bname" placeholder="Book Name" required>
+        <input type="text" class="form-control" id="bnum" placeholder="ISBN" required>
       </div>
       
     <div class="col-4">
         <input type="number" class="form-control" id="quanti" placeholder="Quantity" min="1" max="9" required>
       </div>
 
-    <div class="col">
-      <button type="submit" id="submit" class="btn btn-primary">Delete Book</button>
-    </div>
+      <div class="col">
+        <button type="submit" id="delpox" class="btn btn-primary">Change Availability</button>
+      </div>
   </form>
 
 </div>
@@ -93,21 +93,19 @@
 
 <!-- Start of Set Up Connections to Firebase-->
 <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-      import { getDatabase, ref, set, get, update, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-      import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
-        authDomain: "lms-try-3fdf2.firebaseapp.com",
-        databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
-        projectId: "lms-try-3fdf2",
-        storageBucket: "lms-try-3fdf2.appspot.com",
-        messagingSenderId: "922498078551",
-        appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
-      };
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, set, get, update, child, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
+      authDomain: "lms-try-3fdf2.firebaseapp.com",
+      databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
+      projectId: "lms-try-3fdf2",
+      storageBucket: "lms-try-3fdf2.appspot.com",
+      messagingSenderId: "922498078551",
+      appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
+    };
 
       // Initialize Firebase
       const app = initializeApp(firebaseConfig);
@@ -115,46 +113,83 @@
       const auth = getAuth();
 
         // Handle form submission
-        document.getElementById("submit").addEventListener('click', function(e){
-            e.preventDefault();
+  document.getElementById("delpox").addEventListener('click', function(e){
+    e.preventDefault();
 
-            // Get the book number from the input field
-            const bookName = document.getElementById("bname").value.trim();
+    // Get the book number and quantity from the input fields
+    const bookISBN = document.getElementById("bnum").value.trim();
+    const quantity = parseInt(document.getElementById("quanti").value.trim());
 
-            // Check if the book number is empty
-            if (!bookName) {
-                alert("Please enter a book number.");
-                return; // Exit the function early
-            }
+    // Check if the input fields are empty
+    if (!bookISBN || isNaN(quantity)) {
+      alert("Please enter valid data");
+      return; // Exit the function early
+    }
 
-            // Reference to the book data in the database
-            const bookRef = ref(db, 'Books/' + bookName);
+    // Check if the user is authenticated
+    if (!auth.currentUser) {
+      alert("You need to be logged in to perform this action");
+      return; // Exit the function early
+    }
 
-            // Remove the book from the database
-            remove(bookRef)
-                .then(() => {
-                    console.log("Book deleted successfully!");
-                    // Provide feedback to the user
-                    alert("Book deleted successfully!");
-                    // Redirect to a different page
-                    window.location.href = "booklist.html";
-                })
-                .catch((error) => {
-                    console.error("Error deleting book: ", error);
-                    // Provide feedback to the user
-                    alert("Error deleting book. Please try again later.");
-                });
+    // Reference to the book data in the database
+    const bookRef = ref(db, 'Books/' + bookISBN);
+
+    // Fetch the book data from the database
+    get(bookRef).then((snapshot) => {
+      const bookData = snapshot.val();
+
+      // Check if the book exists and if its quantity is sufficient
+      if (bookData && bookData.quantity >= quantity) {
+        // Transfer the book data to a different node (e.g., "ArchivedBooks")
+        const archivedBooksRef = ref(db, 'UnavailableBooks/' + bookISBN);
+        
+        // Update or set the data in the new node
+        update(archivedBooksRef, {
+          booktitle: bookData.booktitle,
+          author: bookData.author,
+          genre: bookData.genre,
+          quantity: quantity,
+          isbn: bookISBN,
+          shelfnumber: bookData.shelfnumber
+        }).then(() => {
+          // Remove the transferred quantity from the original node
+          const remainingQuantity = bookData.quantity - quantity;
+          if (remainingQuantity === 0) {
+            // If the remaining quantity is 0, remove the entire node
+            remove(bookRef).then(() => {
+              console.log("Book deleted successfully from the original node");
+            }).catch((error) => {
+              console.error("Error deleting book from the original node: ", error);
+            });
+          } else {
+            // If there's remaining quantity, update it in the original node
+            update(bookRef, { quantity: remainingQuantity }).then(() => {
+              console.log("Remaining quantity updated successfully in the original node");
+            }).catch((error) => {
+              console.error("Error updating remaining quantity in the original node: ", error);
+            });
+          }
+          
+          // Provide feedback to the user
+          alert("Book data transferred successfully!");
+          // Redirect to a different page
+          window.location.href = "booklist.html";
+        }).catch((error) => {
+          console.error("Error transferring book data: ", error);
+          // Provide feedback to the user
+          alert("Error transferring book data. Please try again later.");
         });
-
-        // Function to check if user is authenticated
-      function checkAuthentication() {
-          onAuthStateChanged(auth, (user) => {
-              if (!user) {
-                  // User is not logged in, redirect to login page
-                  window.location.href = "index.html";
-              }
-          });
+      } else {
+        alert("Book not found or quantity is insufficient");
       }
+    }).catch((error) => {
+      console.error("Error fetching book data: ", error);
+      // Provide feedback to the user
+      alert("Error fetching book data. Please try again later.");
+    });
+  });
+
 
        // Function to log out
        document.getElementById("logout").addEventListener("click", () => {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Library System Homepage</title>
+<title>LMS Transfered Books</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,21 +49,45 @@
           <a class="nav-link" href="index.html" tabindex="-5" aria-disabled="true" id="logout">Log Out</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
 </nav>
   <!-- End of NavBar -->
+
+  <form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search in Unavailable Books" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+
+<!-- Table Container -->
+<div class="table-con">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Book Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>Quantity</th>
+        <th>ISBN</th>
+        <th>Shelf Number</th>
+        <th>Remarks</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- Table body content will be dynamically populated here -->
+    </tbody>
+  </table>
+</div>
+<!-- End of Table for ArchivedBooks -->
+  
 <div class="loader"></div>
+
   <!--Loader-->
   <script>
     window.addEventListener("load", ()=>{
         const loader = document.querySelector(".loader");
         loader.classList.add("loader--hidden");
-        loader.addEventListener("transitionend",() => {
+        loader.addEventListener("transitioned",() => {
             document.body.removeChild(document.querySelector("loader"));
         });
     });
@@ -73,26 +97,44 @@
 
   <!-- Start of Set Up Connections to Firebase-->
   <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, set, get, update, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-      
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
-          authDomain: "lms-try-3fdf2.firebaseapp.com",
-          databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
-          projectId: "lms-try-3fdf2",
-          storageBucket: "lms-try-3fdf2.appspot.com",
-          messagingSenderId: "922498078551",
-          appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
-        };
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, get, update, child, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    
+      const firebaseConfig = {
+        apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
+        authDomain: "lms-try-3fdf2.firebaseapp.com",
+        databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
+        projectId: "lms-try-3fdf2",
+        storageBucket: "lms-try-3fdf2.appspot.com",
+        messagingSenderId: "922498078551",
+        appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
+      };
   
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const auth = getAuth();
+
+        const archivedBooksRef = ref(db, 'UnavailableBooks');
+  onValue(archivedBooksRef, (snapshot) => {
+    const archivedBooksTableBody = document.getElementById('table-body');
+    archivedBooksTableBody.innerHTML = ''; // Clear the table body before populating
+
+    snapshot.forEach((childSnapshot) => {
+      const archivedBookData = childSnapshot.val();
+      archivedBooksTableBody.innerHTML += `
+        <tr>
+          <td>${archivedBookData.booktitle}</td>
+          <td>${archivedBookData.author}</td>
+          <td>${archivedBookData.genre}</td>
+          <td>${archivedBookData.quantity}</td>
+          <td>${archivedBookData.isbn}</td>
+          <td>${archivedBookData.shelfnumber}</td>
+        </tr>
+      `;
+    });
+  });
 
     // Function to check if user is authenticated
     function checkAuthentication() {

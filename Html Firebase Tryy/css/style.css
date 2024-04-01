@@ -198,7 +198,7 @@
     color: white;
     display: flex;
     align-items: center;
-    width: 160px;
+    width: 200px;
     height: 150px;
     margin-top: 20% ;
     margin-left: 10%;
@@ -309,71 +309,6 @@
 }
 /*End of Container css*/
 
-/*Start of mobile-wrap css*/
-.mobile-container{
-    display: none;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin-top: -15%;
-    text-shadow: 2px 2px 2px black;
-}
-
-.mobile-wrap{
-    background: transparent;
-    color: #fff;
-    padding: 20px 40px;
-    border-radius: 40px;
-    margin-left: 2px;
-    height: 100%;
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, .2);
-    width: 70%;
-}
-.mobile-wrap h1{
-    font-size: 36px;
-    text-align: center;
-    padding-bottom: 20px;
-}
-
-.mobile-wrap .input-box{
-    width: 100%;
-    height: 50px;
-    margin-bottom: 25px;
-}
-.remember-forgot label{
-    color: white;
-    font-size: 14px;
-}
-.remember-forgot a{
-    color: white;
-    font-size: 14px;
-}
-.mobile-wrap .remember-forgot{
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0 10px;
-}
-.mobile-wrap .btn{
-    width: 100%;
-    height: 45px;
-    background: #fff;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    font-weight: 600;
-}
-.mobile-container .register-link{
-    font-size: 12px;
-    text-align: center;
-    margin: 10px 0 15px;
-}
-/*End of mobile-wrap css*/
-
 /*Search Bar Css*/
 .d-flex{
     margin-top: 10px;
@@ -426,6 +361,11 @@ border-radius: 10%;
 }
 
 /*Table from available books Css*/
+.table-con{
+    width: 85%;
+    margin-left: 120px;
+    margin-top: 30px;
+}
 
 .table-container{
     width: 85%;
@@ -476,12 +416,17 @@ border-radius: 10%;
         margin-left: 10%;
     }
     .container {
+        display:flex;
+        height: 20%;
+        width: 90%;
+    }
+    .container h2 {
         display:none;
     }
 
     .wrapper {
-        width: 90%;
-        height: 50%;
+        width: 87.5vw;
+        height: 50.5%;
     }
 
     .input-box input {
@@ -521,6 +466,7 @@ border-radius: 10%;
         width: 5rem;
         margin-left: 20%;
         margin-top: 10px;
+        border-radius: 10px;
     }
 
     .card-img-top{

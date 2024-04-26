@@ -58,172 +58,70 @@
 </nav>
 <!-- End of NavBar -->
 
-<!-- Start of Update Book Form-->
-<div class="form">
-<form class="row g-2">
-    <div class="col-md-8">
-      <input type="text" class="form-control" id="bname" placeholder="Book Title" required>
+<!-- Start of Add book Form-->
+<div class="form" id="add">
+  <form class="row g-2" id="updateForm">
+      <div class="col-md-9">
+        <input type="text" class="form-control" id="bname" placeholder="Book Title" required>
+      </div>
+      <div class="col-3">
+          <input type="number" class="form-control" id="quanti" placeholder="Quantity" min="1" max="9" required>
+        </div>
+  
+        <div class="col-8">
+          <input type="text" class="form-control" id="author" placeholder="Author" required>
+        </div>
+  
+        <div class="col-md-4" required>
+          <select id="genre" class="form-select">
+            <option selected>Genre</option>
+            <option>Fiction</option>
+            <option>Literature</option>
+            <option>Newspaper</option>
+          </select>
+        </div>
+        
+      <div class="col-md-7">
+          <input type="text" class="form-control" id="bnum" placeholder="ISBN" required>
+        </div>
+      <div class="col-md-5">
+        <input type="text" class="form-control" id="snum" placeholder="Shelf Number" required>
+      </div>
+  
+      <div class="col-md-4  ">
+        <input type="text" class="form-control" id="yearcopy" placeholder="Copyrigth Year" onfocus="(this.type='date')"  onblur="if(!this.value) this.type='text'" required>
+      </div>
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="volume" placeholder="Volume" required>
     </div>
-    <div class="col-4">
-        <input type="number" class="form-control" id="quanti" placeholder="Quantity" min="1" max="9" required>
-      </div>
-
-      <div class="col-8">
-        <input type="text" class="form-control" id="author" placeholder="Author" required>
-      </div>
-
-      <div class="col-md-4">
-        <select id="genre" class="form-select">
-          <option selected>Genre</option>
-          <option>Fiction</option>
-          <option>Literature</option>
-          <option>Newspaper</option>
-        </select>
-      </div>
-      
-    <div class="col-md-6">
-        <input type="text" class="form-control" id="bnum" placeholder="ISBN" required>
-      </div>
-
-    <div class="col-md-6">
-      <input type="text" class="form-control" id="snum" placeholder="Shelf Number" required>
+  
+    <div class="col-md-4">
+      <input type="text" class="form-control" id="edition" placeholder="Edition" required>
     </div>
-
+    
+    <div class="col-md-4  ">
+      <input type="text" class="form-control" id="daterec" placeholder="Date Received" onfocus="(this.type='date')"  onblur="if(!this.value) this.type='text'" required>
+    </div>
+  
+  <div class="col-md-8">
+    <input type="text" class="form-control" id="remarks" placeholder="Remarks" required>
+  </div>
+  
     <div class="col">
-      <button type="submit" id="updatebtn" class="btn btn-primary">Save Update</button>
+      <button type="submit" class="btn btn-primary">Update Book</button>
     </div>
-  </form>
-
-</div>
-<!-- End of Add book Form-->
+  
+    </form>
+  
+  </div>
+  <!-- End of Add book Form-->
 
 <div class="loader"></div>
 
-<!--Loader-->
-<script>
-  window.addEventListener("load", ()=>{
-      const loader = document.querySelector(".loader");
-      loader.classList.add("loader--hidden");
-      loader.addEventListener("transitionend",() => {
-          document.body.removeChild(document.querySelector("loader"));
-      });
-  });
-</script>
+<script src="/js/loader.js"></script>
 <script src="/js/auth.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getDatabase, ref, set, get, update, child, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  
-    const firebaseConfig = {
-      apiKey: "AIzaSyD542ixuUPqhloWihSDknkw81fDG2Jy2rs",
-      authDomain: "lms-try-3fdf2.firebaseapp.com",
-      databaseURL: "https://lms-try-3fdf2-default-rtdb.firebaseio.com",
-      projectId: "lms-try-3fdf2",
-      storageBucket: "lms-try-3fdf2.appspot.com",
-      messagingSenderId: "922498078551",
-      appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
-    };
-
-      // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const auth = getAuth();
-
-   // Function to get the value of a URL parameter by name
-   function getParameterByName(name, url) {
-        if (!url) url = window.location.href;
-        name = name.replace(/[\[\]]/g, '\\$&');
-        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-          results = regex.exec(url);
-        if (!results) return null;
-        if (!results[2]) return '';
-        return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-  // Function to set the values of input fields based on the book-key
-    function setInputsFromBookKey() {
-        const bookKey = getParameterByName('book-key');
-        if (bookKey) {
-          // Get the book data from the database using the book-key
-          const bookRef = ref(db, 'Books/' + bookKey);
-          onValue(bookRef, (snapshot) => {
-            const bookData = snapshot.val();
-            // Populate input fields with book data
-            document.getElementById('bname').value = bookData.booktitle;
-            document.getElementById('quanti').value = bookData.quantity;
-            document.getElementById('author').value = bookData.author;
-            document.getElementById('genre').value = bookData.genre;
-            document.getElementById('bnum').value = bookData.isbn;
-            document.getElementById('snum').value = bookData.shelfnumber;
-        });
-      }
-    }
-
-  // Call the function to populate input fields when the page loads
-  window.onload = setInputsFromBookKey;
-
-  document.getElementById('updatebtn').addEventListener('click', () => {
-    // Retrieve updated values from input fields
-    const updatedBookData = {
-      booktitle: document.getElementById('bname').value,
-      quantity: document.getElementById('quanti').value,
-      author: document.getElementById('author').value,
-      genre: document.getElementById('genre').value,
-      isbn: document.getElementById('bnum').value,
-      shelfnumber: document.getElementById('snum').value
-    };
-
-    const bookKey = getParameterByName('book-key');
-    console.log('Book key:', bookKey); // Debug statement
-    if (bookKey) {
-      // Update the corresponding book data in the Firebase Realtime Database
-      const bookRef = ref(db, 'Books/' + bookKey);
-      console.log('Book ref:', bookRef); // Debug statement
-      update(bookRef, updatedBookData)
-      .then(() => {
-                    console.log("Book deleted successfully!");
-                    // Provide feedback to the user
-                    alert("Book deleted successfully!");
-                    // Redirect to a different page
-                    window.location.href = "booklist.html";
-                })
-                .catch((error) => {
-                    console.error("Error deleting book: ", error);
-                    // Provide feedback to the user
-                    alert("Error deleting book. Please try again later.");
-                });
-    }
-});
-
-// Function to check if user is authenticated
-function checkAuthentication() {
-          onAuthStateChanged(auth, (user) => {
-              if (!user) {
-                  // User is not logged in, redirect to login page
-                  window.location.href = "index.html";
-              }
-          });
-      }
-
-      // Function to log out
-      document.getElementById("logout").addEventListener("click", () => {
-          signOut(auth)
-              .then(() => {
-                  console.log("User signed out successfully");
-                  window.localStorage.removeItem('isLoggedIn');
-                  window.location.href = "index.html";
-              })
-              .catch((error) => {
-                  console.error("Error signing out:", error);
-              });
-      });
-
-      // Call checkAuthentication() when the page loads
-      checkAuthentication();
-
-</script>
+<script src="/js/update.js" type="module"></script>
 
 </body>
 </html>

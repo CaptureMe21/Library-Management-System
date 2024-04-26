@@ -147,6 +147,97 @@
     background-color: white;
 }
 
+/* Dashboard Css*/
+.booktotal{
+    height: 100px;
+    width: 300px;
+    color:#fff;
+    font-size: 30px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-shadow: 2px 2px 2px black;
+    position: absolute;
+    top: 40%;
+    left: 12%;
+}
+
+.unreturnedtotal{
+    height: 100px;
+    width: 350px;
+    color:#fff;
+    font-size: 30px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-shadow: 2px 2px 2px black;
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}
+
+.usertotal{
+    height: 100px;
+    width: 350px;
+    color:#fff;
+    font-size: 30px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-shadow: 2px 2px 2px black;
+    position: absolute;
+    top: 40%;
+    left: 60%;
+}
+
+/*PopUp CSS*/
+.popup {
+    height: fit-content;
+    width: 480px;
+    display: none; /* Hide the popup by default */
+    position: fixed; /* Position the popup relative to the viewport */
+    top: 50%; /* Center the popup vertically */
+    left: 50%; /* Center the popup horizontally */
+    transform: translate(-50%, -50%); /* Center the popup perfectly */
+    color:white;
+    backdrop-filter: blur(10px);
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    padding: 20px;
+    z-index: 999; /* Ensure the popup is on top of other elements */
+}
+
+.popup h2{
+    text-align: center;
+    font-weight: bold;
+}
+  
+  .close-button {
+    color: black;
+    font-size: 15px;
+    position: absolute;
+    left: 45%;
+    top: 450px;
+    border-radius: 10px;
+  }
+  
+
 /*Start of Container css*/
 .mobile-logo{
     display: none;
@@ -386,6 +477,12 @@ border-radius: 10%;
 .table tr{
     text-align: center;
 }
+
+.table tr a{
+    color: white;
+    text-decoration: none;
+}
+
 
 /* Responsive styles*/
 @media (max-width: 650px) {

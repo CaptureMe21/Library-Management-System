@@ -14,6 +14,8 @@ const firebaseConfig = {
   appId: "1:922498078551:web:c4a74fa3e833b1103a1012"
 };
 
+export { app, db, auth};
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
@@ -25,7 +27,6 @@ document.getElementById("loginbtn").addEventListener('click', function(e) {
 
     const email = document.getElementById("uname").value.trim();
     const password = document.getElementById("upassword").value;
-
     const dt = new Date();
 
     signInWithEmailAndPassword(auth, email, password)
@@ -59,7 +60,7 @@ document.getElementById("loginbtn").addEventListener('click', function(e) {
                 } else {
                     // User is not an admin, display error message
                     console.log("User is not an admin");
-                    alert("Account is Not Authorized For Admin Access!");
+                    alert("You are NOT an Admin!!");
                 }
             } else {
                 // User data not found, display error message or handle accordingly
@@ -101,7 +102,7 @@ document.getElementById("subregis").addEventListener('submit', function(e){
             namel: lname,
             email: email,
             idnum: idnum,
-            admin: 1  // Set admin role based on condition
+            admin: 1
         }).then(() => {
             console.log("Account created successfully!");
             alert("Account Created Successfully!");
@@ -119,3 +120,4 @@ document.getElementById("subregis").addEventListener('submit', function(e){
         alert(errorMessage);
     });
 });
+

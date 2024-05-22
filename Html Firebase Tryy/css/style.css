@@ -88,23 +88,6 @@
     transform: translate(-50px);
     font-size: 20px;
 }
-.regiswrap .remember-forgot{
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: -15px 0 15px;
-}
-.remember-forgot label input{
-    accent-color: #fff;
-    margin-right: 3px;
-}
-.remember-forgot a{
-    color: #fff;
-    text-decoration: none;
-}
-.remember-forgot a:hover{
-    text-decoration: underline;
-}
 
 .regiswrap .btn{
     width: 100%;
@@ -119,21 +102,7 @@
     color: #333;
     font-weight: 600;
 }
-.regiswrap .register-link{
-    font-size: 14px;
-    text-align: center;
-    margin: 20px 0 15px;
-}
-.register-link p a{
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    color: blue;
-}
-.register-link p a:hover{
-    text-decoration: underline;
-    color: blue;
-}
+
 .welcome{
     color: white;
     display: flex;
@@ -164,7 +133,7 @@
     text-shadow: 2px 2px 2px black;
     position: absolute;
     top: 40%;
-    left: 12%;
+    left: 15%;
 }
 
 .unreturnedtotal{
@@ -183,7 +152,7 @@
     text-shadow: 2px 2px 2px black;
     position: absolute;
     top: 40%;
-    left: 35%;
+    left: 38%;
 }
 
 .usertotal{
@@ -202,7 +171,7 @@
     text-shadow: 2px 2px 2px black;
     position: absolute;
     top: 40%;
-    left: 60%;
+    left: 64%;
 }
 
 /*PopUp CSS*/
@@ -228,15 +197,42 @@
     font-weight: bold;
 }
   
-  .close-button {
+.popup .close-button {
     color: black;
     font-size: 15px;
     position: absolute;
     left: 45%;
-    top: 450px;
+    top: 490px;
     border-radius: 10px;
   }
-  
+  .popup1 {
+    height: fit-content;
+    width: fit-content;
+    display: none; /* Hide the popup by default */
+    position: fixed; /* Position the popup relative to the viewport */
+    top: 50%; /* Center the popup vertically */
+    left: 50%; /* Center the popup horizontally */
+    padding-top: 10px;
+    padding-bottom: 35px;
+    padding-left: 30px;
+    padding-right: 30px;
+    transform: translate(-50%, -50%); /* Center the popup perfectly */
+    color:white;
+    backdrop-filter: blur(10px);
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 20px;
+    z-index: 999; /* Ensure the popup is on top of other elements */
+}
+  .popup1 .close-button {
+    color: black;
+    font-size: 15px;
+    position: absolute;
+    border-radius: 10px;    
+    bottom: 2px;
+    left: 50%; /* Center the popup horizontally */
+    transform: translate(-50%, -50%); /* Center the popup perfectly */
+  }
 
 /*Start of Container css*/
 .mobile-logo{
@@ -365,28 +361,9 @@
     padding: 10px;
     margin-top: 10px;
 }
-.wrapper .remember-forgot{
-    display: flex;
-    justify-content: space-between;
-    font-size: 14.5px;
-    margin: 15px 0px 10px 2px;
-}
-
-.remember-forgot label input{
-    accent-color: #fff;
-    margin-right: 2px;
-   
-}
-.remember-forgot a{
-    color: #fff;
-    text-decoration: none;
-}
-.remember-forgot a:hover{
-    text-decoration: underline;
-}
 
 .wrapper .btn{
-    width: 100%;
+    width: 50%;
     height: 45px;
     background: #fff;
     border: none;
@@ -397,8 +374,39 @@
     font-size: 16px;
     color: #333;
     font-weight: 600;
+    margin-top: 25px;
+    margin-left: 65px;
+    
 }
 /*End of Container css*/
+
+/*Post Announcement Css*/
+.wrapper1{
+    background: transparent;
+    backdrop-filter: blur(10px);
+    color: #fff;
+    padding: 20px 40px;
+    border-radius: 40px;
+    height: 50%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    width: 70%;
+    position: absolute;
+    left: 0px; 
+    right: 0px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 50%;
+    margin-top: 5%;
+}
+
+.wrapper1 .btn_col{
+    position: absolute;
+    left: 50%; 
+    right: 50%; 
+    width: 22%;
+    transform: translate(-50%, -50%);
+    bottom: 10px;
+}
 
 /*Search Bar Css*/
 .d-flex{
@@ -418,12 +426,12 @@
     top: 20px;
     margin-bottom: 10px;
     width: 8rem; 
-    height: 11rem;
+    height: 10rem;
 }
 
 .card-body p{
     text-align: center;
-    font-size: 15px;
+    font-size: 12px;
     margin-top: -25px;
 }
 
@@ -452,16 +460,36 @@ border-radius: 10%;
 }
 
 /*Table from available books Css*/
-.table-con{
+.table-container1{
+    position: absolute;
     width: 85%;
-    margin-left: 120px;
-    margin-top: 30px;
+    left:130px;
+    top: 19%;
+    transform: translateY(2px);
+}
+
+.table1{
+    width: 100%;
+    height: fit-content;
+    color: white;
+    font-size: 15px;
+}
+.table1 th{
+    text-align: center;
+}
+
+.table1 tr{
+    text-align: center;
+}
+
+.table1 tr a{
+    color: white;
+    text-decoration: none;
 }
 
 .table-container{
     width: 85%;
     margin-left: 190px;
-    margin-top: -430px;
 }
 .table{
     width: 100%;
@@ -479,6 +507,27 @@ border-radius: 10%;
 }
 
 .table tr a{
+    color: white;
+    text-decoration: none;
+}
+
+.table-container2{
+    position: absolute;
+    left: 0px; 
+    right: -250px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 50%;
+    margin-top: 5%;
+}
+
+.table2{
+    width: 100%;
+    height: fit-content;
+    color: white;
+    font-size: 15px;
+}
+.table2 tr a{
     color: white;
     text-decoration: none;
 }
@@ -512,11 +561,6 @@ border-radius: 10%;
         margin-top: -100px;
         margin-left: 10%;
     }
-    .container {
-        display:flex;
-        height: 20%;
-        width: 90%;
-    }
     .container h2 {
         display:none;
     }
@@ -548,9 +592,6 @@ border-radius: 10%;
         margin-top: 10px;
         margin-left: 10px;
         width: 95%;
-        justify-content: center;
-        align-items: center;
-        display: flex;
     }
     /*Start of Responsive Card*/
     .card{

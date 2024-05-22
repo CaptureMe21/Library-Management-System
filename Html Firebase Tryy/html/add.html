@@ -41,7 +41,7 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="returned.html">Returned Books</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="studentlog.html">Student Logbook</a></li>
+            <li><a class="dropdown-item" href="user.html">Users Account</a></li>
           </ul>
         </li>
 
@@ -49,10 +49,6 @@
           <a class="nav-link" href="index.html" tabindex="-5" aria-disabled="true" id="logout">Log Out</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
     </div>
   </div>
   
@@ -79,6 +75,8 @@
           <option>Fiction</option>
           <option>Literature</option>
           <option>Newspaper</option>
+          <option>History</option>
+          <option>Novel</option>
         </select>
       </div>
       
@@ -104,8 +102,12 @@
     <input type="text" class="form-control" id="daterec" placeholder="Date Received" onfocus="(this.type='date')"  onblur="if(!this.value) this.type='text'" required>
   </div>
 
-<div class="col-md-8">
+<div class="col-md-4">
   <input type="text" class="form-control" id="remarks" placeholder="Remarks" required>
+</div>
+
+<div class="col-md-4">
+  <input type="text" class="form-control" id="pagenum" placeholder="Page Count" required>
 </div>
 
   <div class="col">
@@ -120,7 +122,6 @@
 <div class="loader"></div>
 
 <script src="/js/loader.js"></script>
-<script src="/js/auth.js"></script>
 <script src="/js/add.js" type="module"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

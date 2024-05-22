@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>LMS View Users</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css"> 
+
+</head>
+<body>
+    <body style="background-image: url('/photos/overview.png'); background-size:cover; background-position:center; background-repeat:no-repeat; min-height:100vh;">
+<!-- Start of Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="dashboard.html">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Book Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="booklist.html">Books Available</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="dmgbooks.html">Books Unavailable</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin Options
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="unreturned.html">Borrowed Books</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="returned.html">Returned Books</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="user.html">Users Account</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="index.html" tabindex="-5" aria-disabled="true" id="logout">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- End of NavBar -->
+
+<!-- Table Container -->
+<div class="table-container2">
+  <table class="table2">
+    <thead>
+      <tr>
+        <th>Student's Name</th>
+        <th>User's ID</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <!-- Table body content will be dynamically populated here -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Popup HTML -->
+<div id="popup1" class="popup1">
+<div class="popup-content">
+  <div class="close-button">&times;</div>
+</div>
+</div>
+
+  <div class="loader"></div>
+
+  <script src="/js/loader.js"></script>
+  <script src="/js/user.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -59,7 +59,7 @@ getTotalBooks();
 
 // Function to get total number of books
 function getTotalUnavailable() {
-  const booksRef = ref(db, 'BorrowedBooks');
+  const booksRef = ref(db, 'BorrowedBook');
     get(booksRef).then((snapshot) => {
       if (snapshot.exists()) {
         const bookData = snapshot.val();

@@ -10,7 +10,8 @@
 
 </head>
 <body>
-    <body style="background-image: url('/photos/wallpainting.png'); background-size:cover; background-position:center; background-repeat:no-repeat; min-height:100vh;">
+  <body style="background-image: url('/photos/librarybg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; min-height:100vh;">
+    
 <!-- Start of Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
@@ -38,8 +39,10 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="unreturned.html">Borrowed Books</a></li>
-              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="returned.html">Returned Books</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="permission.html">Borrow Request</a></li>
+              <li><a class="dropdown-item" href="turnover.html">Return Request</a></li>
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item" href="user.html">Users Account</a></li>
             </ul>
@@ -54,6 +57,9 @@
     </div>
   </nav>
   <!-- End of NavBar -->
+
+  <!-- Display the welcome message -->
+  <div id="welcomeMessage" class="welcome-message"><a>Welcome, Admin!</a></div>
 
     <!-- Display the total number of books -->
     <div id="totalBooks" class="booktotal"></div>

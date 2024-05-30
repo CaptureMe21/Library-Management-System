@@ -18,50 +18,57 @@ const auth = getAuth();
 
 export { app, db, auth};
 
-    function displayBooksData() {
-      // Reference to the 'BorrowedBooks' node in the database
-      const borrowedBooksRef = ref(db, 'BorrowedBooks');
-  
-      // Listen for changes to the 'BorrowedBooks' node
-      onValue(borrowedBooksRef, (snapshot) => {
-          const tableBody = document.getElementById('table-body');
-          tableBody.innerHTML = ''; // Clear the table body before populating
-  
-          // Iterate over each child of 'BorrowedBooks'
-          snapshot.forEach((childSnapshot) => {
-              const transactionId = childSnapshot.key; // Get the key (transaction ID)
-              const bookData = childSnapshot.val();
-  
-              // Append a new row to the table for each book
-              tableBody.innerHTML += `
-                  <tr>
-                      <td><a onclick="showPopup('${transactionId}'); return false;" href="#">${bookData.booktitle}</a></td>
-                      <td>${bookData.isbn}</td>
-                      <td>${bookData.quantity}</td>
-                      <td>${bookData.bname}</td>
-                      <td>${bookData.idnum}</td>
-                      <td>${bookData.uid}</td>
-                      <td>${bookData.borrowdate}</td>
-                      <td>${bookData.returndate}</td>
-                      <td>${transactionId}</td>
-                  </tr>
-              `;
-          });
-  
-          // Add event listeners to the Update buttons
-          const updateButtons = document.querySelectorAll('.update-button');
-          updateButtons.forEach((button) => {
-              button.addEventListener('click', (event) => {
-                  const bookKey = event.target.dataset.key; // Get the key of the book
-                  // Redirect to the update page with the book key as a query parameter
-                  window.location.href = `update.html?book-key=${bookKey}`;
-              });
-          });
-      });
-  }
-  
-  // Call the function to display books data when the DOM content is loaded
-  document.addEventListener('DOMContentLoaded', displayBooksData);
+function displayBooksData() {
+    // Reference to the 'BorrowedBooks' node in the database
+    const borrowedBooksRef = ref(db, 'BorrowedBook');
+
+    // Listen for changes to the 'BorrowedBooks' node
+    onValue(borrowedBooksRef, (snapshot) => {
+        const tableBody = document.getElementById('table-body');
+        const messageDiv = document.getElementById('message');
+        tableBody.innerHTML = ''; // Clear the table body before populating
+        messageDiv.innerHTML = ''; // Clear the message div before populating
+
+        if (!snapshot.exists()) {
+            // Display a message if no books have been borrowed
+            messageDiv.innerHTML = '<p>All books are in place.</p>';
+        } else {
+            // Iterate over each child of 'BorrowedBooks'
+            snapshot.forEach((childSnapshot) => {
+                const transactionId = childSnapshot.key; // Get the key (transaction ID)
+                const bookData = childSnapshot.val();
+
+                // Append a new row to the table for each book
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${bookData.booktitle}</a></td>
+                        <td>${bookData.isbn}</td>
+                        <td>${bookData.quantity}</td>
+                        <td>${bookData.bname}</td>
+                        <td>${bookData.idnum}</td>
+                        <td>${bookData.uid}</td>
+                        <td>${bookData.borrowdate}</td>
+                        <td>${bookData.returndate}</td>
+                        <td>${transactionId}</td>
+                    </tr>
+                `;
+            });
+
+            // Add event listeners to the Update buttons
+            const updateButtons = document.querySelectorAll('.update-button');
+            updateButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    const bookKey = event.target.dataset.key; // Get the key of the book
+                    // Redirect to the update page with the book key as a query parameter
+                    window.location.href = `update.html?book-key=${bookKey}`;
+                });
+            });
+        }
+    });
+}
+
+    // Call the function to display books data when the DOM content is loaded
+    document.addEventListener('DOMContentLoaded', displayBooksData);
   
     
   function searchBooks() {
@@ -86,7 +93,7 @@ export { app, db, auth};
                 // Append a new row to the table for each matching book
                 tableBody.innerHTML += `
                     <tr>
-                        <td><a onclick="showPopup('${transactionId}'); return false;" href="#">${bookData.booktitle}</a></td>
+                        <td>${bookData.booktitle}</a></td>
                         <td>${bookData.isbn}</td>
                         <td>${bookData.quantity}</td>
                         <td>${bookData.bname}</td>

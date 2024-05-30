@@ -132,8 +132,9 @@
     display: flex;
     text-shadow: 2px 2px 2px black;
     position: absolute;
-    top: 40%;
-    left: 15%;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50px);
 }
 
 .unreturnedtotal{
@@ -151,8 +152,9 @@
     display: flex;
     text-shadow: 2px 2px 2px black;
     position: absolute;
-    top: 40%;
-    left: 38%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50px);
 }
 
 .usertotal{
@@ -170,8 +172,17 @@
     display: flex;
     text-shadow: 2px 2px 2px black;
     position: absolute;
-    top: 40%;
-    left: 64%;
+    top: 50%;
+    left: 77%;
+    transform: translate(-50%, -50px);
+}
+.welcome-message{
+    position: absolute;
+    top:23%;
+    left: 50%;
+    transform: translate(-50%, -50px);
+    color: white;
+    font-size: 80px;
 }
 
 /*PopUp CSS*/
@@ -380,6 +391,15 @@
 }
 /*End of Container css*/
 
+/*Search Css*/
+.d-flex{
+    position: absolute;
+    top: 11%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    margin-bottom: 25px;
+}
+
 /*Post Announcement Css*/
 .wrapper1{
     background: transparent;
@@ -410,20 +430,23 @@
 
 /*Search Bar Css*/
 .d-flex{
-    margin-top: 10px;
-    margin-left: 25%;
-    width: 50%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+    width: 40%;
+    position: absolute;
+    left: 50%; 
+    right: 50%; 
+    transform: translate(-50%, -50%);
 }
 
 /* Start of Book List Card*/
+.card-format{
+    margin-top: 4%;
+}
 .card{
     background-color: white;
     opacity: 65%;
     right: -3%;
     top: 20px;
+    margin-left: 15px;
     margin-bottom: 10px;
     width: 8rem; 
     height: 10rem;
@@ -461,11 +484,16 @@ border-radius: 10%;
 
 /*Table from available books Css*/
 .table-container1{
+    width: 90%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
     position: absolute;
-    width: 85%;
-    left:130px;
-    top: 19%;
-    transform: translateY(2px);
+    top: 100px;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    margin-top: 90px;
+    
 }
 
 .table1{
@@ -487,9 +515,35 @@ border-radius: 10%;
     text-decoration: none;
 }
 
-.table-container{
+
+.table-con{
     width: 85%;
     margin-left: 190px;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    position: absolute;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    margin-top: 110px;
+
+}
+
+.table-container{
+    width: 85%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 60px;
+}
+.update-btn{
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+}
+.table-container .update-btn:hover{
+    background-color: blue;
 }
 .table{
     width: 100%;
@@ -512,13 +566,13 @@ border-radius: 10%;
 }
 
 .table-container2{
-    position: absolute;
-    left: 0px; 
-    right: -250px; 
-    margin-left: auto; 
-    margin-right: auto; 
-    width: 50%;
-    margin-top: 5%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    margin-left: 200px;
+    margin-top: 60px;
+    width: 30%;  
+    text-align: center;
 }
 
 .table2{
@@ -528,6 +582,64 @@ border-radius: 10%;
     font-size: 15px;
 }
 .table2 tr a{
+    color: white;
+    text-decoration: none;
+}
+
+.message{
+    color: #fff;
+    font-size:x-large;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.allow-btn{
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+}
+
+.allow-btn:hover{
+    background-color: blue;
+}
+.delete-btn{
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+}
+
+.delete-btn:hover{
+    background-color: blue;
+}
+
+.table-container3{
+    width: 90%;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    position: absolute;
+    left: 51%;
+    transform: translate(-50%);
+    margin-top: 80px;
+}
+
+.table3{
+    width: 100%;
+    height: fit-content;
+    color: white;
+    font-size: 15px;
+}
+.table3 th{
+    text-align: center;
+}
+
+.table3 tr{
+    text-align: center;
+}
+
+.table3 tr a{
     color: white;
     text-decoration: none;
 }

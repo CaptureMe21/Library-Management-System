@@ -23,31 +23,39 @@ export { app, db, auth };
 function displayBooksData() {
     // Reference to the 'ReturnedBooks' node in the database
     const borrowedBooksRef = ref(db, 'ReturnedBooks');
+    const messageDiv = document.getElementById('message'); // Reference to the message div
 
     // Listen for changes to the 'ReturnedBooks' node
     onValue(borrowedBooksRef, (snapshot) => {
         const tableBody = document.getElementById('table-body');
         tableBody.innerHTML = ''; // Clear the table body before populating
 
-        // Iterate over each child of 'ReturnedBooks'
-        snapshot.forEach((childSnapshot) => {
-            const transactionId = childSnapshot.key; // Get the key (transaction ID)
-            const bookData = childSnapshot.val();
+        if (!snapshot.exists()) {
+            // Display a message if no books have been returned
+            messageDiv.innerHTML = '<p>All books are in place.</p>';
+        } else {
+            messageDiv.innerHTML = ''; // Clear the message if there is data
 
-            // Append a new row to the table for each book
-            tableBody.innerHTML += `
-                <tr>
-                    <td><a onclick="showPopup('${transactionId}'); return false;" href="#">${bookData.booktitle}</a></td>
-                    <td>${bookData.isbn}</td>
-                    <td>${bookData.quantity}</td>
-                    <td>${bookData.bname}</td>
-                    <td>${bookData.idnum}</td>
-                    <td>${bookData.uid}</td>
-                    <td>${bookData.returndate}</td>
-                    <td>${transactionId}</td>
-                </tr>
-            `;
-        });
+            // Iterate over each child of 'ReturnedBooks'
+            snapshot.forEach((childSnapshot) => {
+                const transactionId = childSnapshot.key; // Get the key (transaction ID)
+                const bookData = childSnapshot.val();
+
+                // Append a new row to the table for each book
+                tableBody.innerHTML += `
+                    <tr>
+                        <td>${bookData.booktitle}</td>
+                        <td>${bookData.isbn}</td>
+                        <td>${bookData.quantity}</td>
+                        <td>${bookData.bname}</td>
+                        <td>${bookData.idnum}</td>
+                        <td>${bookData.uid}</td>
+                        <td>${bookData.returndate}</td>
+                        <td>${transactionId}</td>
+                    </tr>
+                `;
+            });
+        }
     });
 }
 
@@ -72,6 +80,7 @@ function searchBooks() {
                 bookData.quantity.toString().includes(searchTerm) ||
                 bookData.bname.toLowerCase().includes(searchTerm) ||
                 bookData.idnum.toLowerCase().includes(searchTerm) ||
+                bookData.uid.toLowerCase().includes(searchTerm) ||
                 transactionId.includes(searchTerm)) {
                 // Append a new row to the table for each matching book
                 tableBody.innerHTML += `
@@ -82,7 +91,6 @@ function searchBooks() {
                         <td>${bookData.bname}</td>
                         <td>${bookData.idnum}</td>
                         <td>${bookData.uid}</td>
-                        <td>${bookData.borrowdate}</td>
                         <td>${bookData.returndate}</td>
                         <td>${transactionId}</td>
                     </tr>

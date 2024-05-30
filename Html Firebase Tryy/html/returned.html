@@ -10,7 +10,7 @@
 
 </head>
 <body>
-    <body style="background-image: url('/photos/singed.png'); background-size:cover; background-position:center; background-repeat:no-repeat; min-height:100vh;">
+  <body style="background-image: url('/photos/librarybg.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; min-height:100vh;">
 <!-- Start of Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -38,8 +38,10 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="unreturned.html">Borrowed Books</a></li>
-            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item active" href="returned.html">Returned Books</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="permission.html">Borrow Request</a></li>
+            <li><a class="dropdown-item" href="turnover.html">Return Request</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="user.html">Users Account</a></li>
           </ul>
@@ -56,13 +58,13 @@
 
 <!--Search Bar-->
 <form class="d-flex">
-  <input class="form-control me-2" id="search-input"type="search" placeholder="Search in Book List" aria-label="Search">
+  <input class="form-control me-2" id="search-input"type="search" placeholder="Search in Transaction History" aria-label="Search">
   <button class="btn btn-outline-success" type="search" id="searchee">Search</button>
 </form>
 
   <!-- Table Container -->
-  <div class="table-container1">
-    <table class="table1">
+  <div class="table-container3">
+    <table class="table3">
       <thead>
         <tr>
           <th>Book Title</th>
@@ -80,6 +82,9 @@
       </tbody>
     </table>
   </div>
+
+  <div class="message" id="message"></div>
+<table>
 
   <!-- Popup HTML -->
 <div id="popup" class="popup">
